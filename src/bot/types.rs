@@ -179,6 +179,11 @@ pub struct ChatJoinRequest {
     pub from: User,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct ChatPermissions {
+    pub can_send_messages: bool,
+}
+
 /// Contains information about the current status of a webhook.
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
 pub struct WebhookInfo {

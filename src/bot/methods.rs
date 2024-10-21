@@ -2,7 +2,7 @@
 use super::types;
 use super::types::InputMedia;
 use super::types::{
-    ChatId, FileToSend, ForceReply, InlineKeyboardMarkup, MessageId, ParseMode,
+    ChatId, ChatPermissions, FileToSend, ForceReply, InlineKeyboardMarkup, MessageId, ParseMode,
     ReplyKeyboardMarkup, ReplyKeyboardRemove, UpdateId, UserId,
 };
 use serde::de::DeserializeOwned;
@@ -783,6 +783,13 @@ pub struct DeclineJoinRequest<'a> {
     pub user_id: UserId,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, PartialEq, Eq)]
+pub struct RestrictChatMember<'a> {
+    pub chat_id: ChatTarget<'a>,
+    pub user_id: UserId,
+    pub permissions: ChatPermissions,
+}
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct GetMe;
 
@@ -831,7 +838,8 @@ impl_method_table!(
     [         GetChatMember<'_>,          "getChatMember",      types::ChatMember],
     [       AnswerCallbackQuery,    "answerCallbackQuery",                   bool],
     [    ApproveJoinRequest<'_>, "approveChatJoinRequest",                   bool],
-    [    DeclineJoinRequest<'_>, "declineChatJoinRequest",                   bool]
+    [    DeclineJoinRequest<'_>, "declineChatJoinRequest",                   bool],
+    [    RestrictChatMember<'_>,     "restrictChatMember",                   bool]
 );
 
 // https://core.telegram.org/bots/api#making-requests
